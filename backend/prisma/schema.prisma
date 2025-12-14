@@ -13,7 +13,32 @@ datasource db {
   provider = "postgresql"
 }
 
-model users {
+model user {
   id Int @id @default(autoincrement())
   username String @unique
+  password String
+  is_author Boolean @default(false)
+  posts post[]
+  comments comment[]
+}
+
+model post {
+  id Int @id @default(autoincrement())
+  title String
+  body String
+  created_on DateTime @default(now())
+  modified_on DateTime @default(now())
+  author user @relation(fields: [author_id], references: [id])
+  author_id Int
+  comments comment[]
+}
+
+model comment {
+  id Int @id @default(autoincrement())
+  text String
+  created_on DateTime @default(now())
+  post post @relation(fields: [post_id], references: [id])
+  post_id Int
+  user user @relation(fields: [user_id], references: [id])
+  user_id Int
 }
