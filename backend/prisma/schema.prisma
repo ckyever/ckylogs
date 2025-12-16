@@ -28,8 +28,8 @@ model post {
   body String
   created_on DateTime @default(now())
   modified_on DateTime @default(now())
-  author user @relation(fields: [author_id], references: [id])
-  author_id Int
+  author user? @relation(fields: [author_id], references: [id])
+  author_id Int?
   comments comment[]
 }
 
@@ -39,6 +39,6 @@ model comment {
   created_on DateTime @default(now())
   post post @relation(fields: [post_id], references: [id])
   post_id Int
-  user user @relation(fields: [user_id], references: [id])
-  user_id Int
+  user user? @relation(fields: [user_id], references: [id])
+  user_id Int?
 }
