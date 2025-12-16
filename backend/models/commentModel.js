@@ -18,7 +18,7 @@ const insertComment = async (postId, userId, text) => {
 
 const doesCommentExist = async (commentId) => {
   try {
-    const result = await prisma.comment.findFirst({
+    const result = await prisma.comment.findUnique({
       select: {
         id: true,
       },

@@ -4,6 +4,9 @@ import {
   getPosts,
   getPostById,
   getPostsByAuthorId,
+  doesPostExist,
+  getPostAuthorId,
+  updatePostById,
 } from "../models/postModel.js";
 import { isUserAnAuthor } from "../models/userModel.js";
 
@@ -74,4 +77,41 @@ const getAuthorPosts = async (req, res) => {
   }
 };
 
-export { createPost, getAllPosts, getPost, getAuthorPosts };
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { title, body } = req.body;
+
+  const postId = await doesPostExist(id);
+  if (!postId) {
+    return res
+      .status(constants.HTTP_STATUS_NOT_FOUND)
+      .json({ message: "That post doesn't exist" });
+  }
+
+  const authorId = await getPostAuthorId(postId);
+  if (authorId) {
+    if (authorId != req.user.id) {
+      return res
+        .status(constants.HTTP_STATUS_FORBIDDEN)
+        .json({ message: "You can't update another user's post" });
+    }
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "Unable to update this post" });
+  }
+
+  const post = await updatePostById(postId, title, body);
+  if (post) {
+    return res.json({
+      message: "Updated post",
+      post,
+    });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "We couldn't update this post" });
+  }
+};
+
+export { createPost, getAllPosts, getPost, getAuthorPosts, updatePost };

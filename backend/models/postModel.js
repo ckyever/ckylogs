@@ -64,4 +64,64 @@ const getPostsByAuthorId = async (authorId) => {
   }
 };
 
-export { insertPost, getPosts, getPostById, getPostsByAuthorId };
+const updatePostById = async (postId, title, body) => {
+  try {
+    const post = await prisma.post.update({
+      where: {
+        id: Number(postId),
+      },
+      data: {
+        title: title,
+        body: body,
+      },
+    });
+    return post;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const doesPostExist = async (postId) => {
+  try {
+    const result = await prisma.post.findUnique({
+      select: {
+        id: true,
+      },
+      where: {
+        id: Number(postId),
+      },
+    });
+    return result ? result.id : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const getPostAuthorId = async (postId) => {
+  try {
+    const result = await prisma.post.findUnique({
+      select: {
+        author_id: true,
+      },
+      where: {
+        id: Number(postId),
+      },
+    });
+    return result ? result.author_id : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export {
+  insertPost,
+  getPosts,
+  getPostById,
+  getPostsByAuthorId,
+  updatePostById,
+  doesPostExist,
+  getPostAuthorId,
+};
