@@ -29,4 +29,21 @@ const getUser = async (username) => {
   }
 };
 
-export { insertUser, getUser };
+const isUserAnAuthor = async (userId) => {
+  try {
+    const result = await prisma.user.findUnique({
+      select: {
+        is_author: true,
+      },
+      where: {
+        id: userId,
+      },
+    });
+    return result ? result.is_author : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { insertUser, getUser, isUserAnAuthor };

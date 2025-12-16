@@ -5,8 +5,16 @@ import {
   getPostById,
   getPostsByAuthorId,
 } from "../models/postModel.js";
+import { isUserAnAuthor } from "../models/userModel.js";
 
 const createPost = async (req, res) => {
+  const isCurrentUserAnAuthor = await isUserAnAuthor(req.user.id);
+  if (!isCurrentUserAnAuthor) {
+    return res
+      .status(constants.HTTP_STATUS_FORBIDDEN)
+      .json({ message: "You do not have the permission to create posts" });
+  }
+
   const { title, body } = req.body;
 
   if (title && body) {
