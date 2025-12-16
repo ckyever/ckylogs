@@ -1,6 +1,7 @@
-import { constants } from "http2";
-import { getUser } from "../models/userModel.js";
 import { compare } from "bcryptjs";
+import { constants } from "http2";
+import jwt from "jsonwebtoken";
+import { getUser } from "../models/userModel.js";
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
@@ -10,7 +11,21 @@ const loginUser = async (req, res) => {
     if (user) {
       const isValidCredentials = await compare(password, user.password);
       if (isValidCredentials) {
-        return res.json("CKYTODO: Create the jwt");
+        jwt.sign(
+          { user },
+          process.env.JWT_SECRET,
+          { expiresIn: "20s" },
+          (error, token) => {
+            if (error) {
+              console.error(error);
+              return res
+                .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+                .json({ message: "Failed to get token" });
+            } else {
+              return res.json({ message: "You're in!", token });
+            }
+          }
+        );
       } else {
         return res
           .status(constants.HTTP_STATUS_UNAUTHORIZED)
