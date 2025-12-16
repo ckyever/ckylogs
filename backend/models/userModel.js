@@ -15,4 +15,18 @@ const insertUser = async (username, password) => {
   }
 };
 
-export { insertUser };
+const getUser = async (username) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { insertUser, getUser };
