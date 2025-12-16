@@ -1,5 +1,10 @@
 import { constants } from "http2";
-import { insertPost, getPosts, getPostById } from "../models/postModel.js";
+import {
+  insertPost,
+  getPosts,
+  getPostById,
+  getPostsByAuthorId,
+} from "../models/postModel.js";
 
 const createPost = async (req, res) => {
   const { title, body } = req.body;
@@ -45,4 +50,20 @@ const getPost = async (req, res) => {
   }
 };
 
-export { createPost, getAllPosts, getPost };
+const getAuthorPosts = async (req, res) => {
+  const { id } = req.params;
+  const posts = await getPostsByAuthorId(id);
+
+  if (posts) {
+    return res.json({
+      message: `Here's all the posts for Author ID - ${id}`,
+      posts,
+    });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "We couldn't get posts for that author" });
+  }
+};
+
+export { createPost, getAllPosts, getPost, getAuthorPosts };

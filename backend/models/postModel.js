@@ -44,4 +44,21 @@ const getPostById = async (postId) => {
   }
 };
 
-export { insertPost, getPosts, getPostById };
+const getPostsByAuthorId = async (authorId) => {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        author_id: Number(authorId),
+      },
+      orderBy: {
+        created_on: "desc",
+      },
+    });
+    return posts;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { insertPost, getPosts, getPostById, getPostsByAuthorId };
