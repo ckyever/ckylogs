@@ -27,7 +27,7 @@ model post {
   title String
   body String
   created_on DateTime @default(now())
-  modified_on DateTime @default(now())
+  modified_on DateTime @updatedAt
   author user? @relation(fields: [author_id], references: [id])
   author_id Int?
   comments comment[]
