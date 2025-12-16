@@ -30,4 +30,18 @@ const getPosts = async () => {
   }
 };
 
-export { insertPost, getPosts };
+const getPostById = async (postId) => {
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: Number(postId),
+      },
+    });
+    return post;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { insertPost, getPosts, getPostById };
