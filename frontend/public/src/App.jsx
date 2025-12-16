@@ -4,7 +4,6 @@ import { Outlet } from "react-router";
 function App() {
   return (
     <>
-      <h1>Ckylogs</h1>
       <Outlet />
     </>
   );
