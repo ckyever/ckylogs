@@ -16,4 +16,52 @@ const insertComment = async (postId, userId, text) => {
   }
 };
 
-export { insertComment };
+const doesCommentExist = async (commentId) => {
+  try {
+    const result = await prisma.comment.findFirst({
+      select: {
+        id: true,
+      },
+      where: {
+        id: Number(commentId),
+      },
+    });
+    return result ? result.id : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const getCommentUserId = async (commentId) => {
+  try {
+    const result = await prisma.comment.findUnique({
+      select: {
+        user_id: true,
+      },
+      where: {
+        id: Number(commentId),
+      },
+    });
+    return result ? result.user_id : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const deleteCommentById = async (commentId) => {
+  try {
+    const comment = await prisma.comment.delete({
+      where: {
+        id: Number(commentId),
+      },
+    });
+    return comment;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { insertComment, doesCommentExist, getCommentUserId, deleteCommentById };
