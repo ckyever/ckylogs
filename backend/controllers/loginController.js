@@ -14,7 +14,7 @@ const loginUser = async (req, res) => {
         jwt.sign(
           { user },
           process.env.SECRET_KEY,
-          { expiresIn: "20s" },
+          { expiresIn: "1 days" },
           (error, token) => {
             if (error) {
               console.error(error);
