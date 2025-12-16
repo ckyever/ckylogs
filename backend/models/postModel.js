@@ -36,6 +36,9 @@ const getPostById = async (postId) => {
       where: {
         id: Number(postId),
       },
+      include: {
+        comments: true,
+      },
     });
     return post;
   } catch (error) {
