@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { constants } from "http2";
 import { insertUser } from "../models/userModel.js";
 
@@ -5,7 +6,9 @@ const createUser = async (req, res) => {
   const { username, password } = req.body;
 
   if (username && password) {
-    const newUser = await insertUser(username, password);
+    const SALT_ROUNDS = 10;
+    const hashedPassword = await hash(password, SALT_ROUNDS);
+    const newUser = await insertUser(username, hashedPassword);
     if (newUser) {
       return res.json({ message: "A user is born", user: newUser });
     } else {
