@@ -13,7 +13,7 @@ const loginUser = async (req, res) => {
       if (isValidCredentials) {
         jwt.sign(
           { user },
-          process.env.JWT_SECRET,
+          process.env.SECRET_KEY,
           { expiresIn: "20s" },
           (error, token) => {
             if (error) {

@@ -1,15 +1,20 @@
 import express from "express";
-import { loginRouter } from "./routes/loginRouter.js";
-import { userRouter } from "./routes/userRouter.js";
-import { postRouter } from "./routes/postRouter.js";
+import { authenticateToken } from "./middleware/authentication.js";
 import { commentRouter } from "./routes/commentRouter.js";
+import { loginRouter } from "./routes/loginRouter.js";
+import { postRouter } from "./routes/postRouter.js";
+import { userRouter } from "./routes/userRouter.js";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/login", loginRouter);
+// Unprotected Routes
 app.use("/api/user", userRouter);
+app.use("/api/login", loginRouter);
+
+// Protected Routes
+app.use(authenticateToken);
 app.use("/api/post", postRouter);
 app.use("/api/comment", commentRouter);
 
