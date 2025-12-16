@@ -1,5 +1,5 @@
 import { constants } from "http2";
-import { insertPost } from "../models/postModel.js";
+import { insertPost, getPosts } from "../models/postModel.js";
 
 const createPost = async (req, res) => {
   const { title, body } = req.body;
@@ -20,4 +20,16 @@ const createPost = async (req, res) => {
   }
 };
 
-export { createPost };
+const getAllPosts = async (req, res) => {
+  const posts = await getPosts();
+
+  if (posts) {
+    return res.json({ message: "Here's all the posts", posts });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "We couldn't get posts" });
+  }
+};
+
+export { createPost, getAllPosts };

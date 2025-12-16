@@ -16,4 +16,18 @@ const insertPost = async (title, body, authorId) => {
   }
 };
 
-export { insertPost };
+const getPosts = async () => {
+  try {
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        created_on: "desc",
+      },
+    });
+    return posts;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { insertPost, getPosts };
