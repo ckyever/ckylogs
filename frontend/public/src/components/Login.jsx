@@ -30,7 +30,7 @@ function Login() {
       localStorage.setItem(constants.LOCAL_STORAGE_USERNAME, data.username);
       setUserToken(data.token);
       setUsername(data.username);
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error) {
       console.error(error);
     }
