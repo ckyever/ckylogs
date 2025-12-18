@@ -3,14 +3,14 @@ import { useState } from "react";
 import { Link, useOutletContext } from "react-router";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [isLoginMode, setIsLoginMode] = useState(true);
+function AuthForm() {
   const [loginUsername, setLoginUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUserToken, setUsername } = useOutletContext();
   const navigate = useNavigate();
 
+  const isLoginMode = location.pathname === "/login";
   const apiUrl = `http://localhost:3000/api${isLoginMode ? "/login" : "/user"}`;
 
   const handleUsernameChange = async (event) => {
@@ -86,17 +86,15 @@ function Login() {
       </form>
       {isLoginMode ? (
         <span>
-          Don't have an account?{" "}
-          <button onClick={() => setIsLoginMode(false)}>Sign Up</button>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </span>
       ) : (
         <span>
-          Already have an account?{" "}
-          <button onClick={() => setIsLoginMode(true)}>Login</button>
+          Already have an account? <Link to="/login">Login</Link>
         </span>
       )}
     </div>
   );
 }
 
-export default Login;
+export default AuthForm;
