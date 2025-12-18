@@ -1,6 +1,6 @@
 import * as constants from "../constants.jsx";
 import { useState } from "react";
-import { useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -38,6 +38,7 @@ function Login() {
 
   return (
     <div className="login">
+      <Link to="/">Ckylogs</Link>
       <h1>Login</h1>
       <form onSubmit={(event) => handleLogin(event)}>
         <input
