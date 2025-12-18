@@ -4,16 +4,19 @@ import { Link, useOutletContext } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [isLoginMode, setIsLoginMode] = useState(true);
   const [loginUsername, setLoginUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUserToken, setUsername } = useOutletContext();
   const navigate = useNavigate();
 
+  const endPoint = isLoginMode ? "/login" : "/user";
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`http://localhost:3000/api${endPoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +42,7 @@ function Login() {
   return (
     <div className="login">
       <Link to="/">Ckylogs</Link>
-      <h1>Login</h1>
+      <h1>{isLoginMode ? "Login" : "Sign Up"}</h1>
       <form onSubmit={(event) => handleLogin(event)}>
         <input
           type="text"
@@ -59,11 +62,19 @@ function Login() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
-        <button type="submit">Login</button>
+        <button type="submit">{isLoginMode ? "Login" : "Sign Up"}</button>
       </form>
-      <span>
-        Don't have an account? <Link to="/signup">Sign Up</Link>
-      </span>
+      {isLoginMode ? (
+        <span>
+          Don't have an account?{" "}
+          <button onClick={() => setIsLoginMode(false)}>Sign Up</button>
+        </span>
+      ) : (
+        <span>
+          Already have an account?{" "}
+          <button onClick={() => setIsLoginMode(true)}>Login</button>
+        </span>
+      )}
     </div>
   );
 }
