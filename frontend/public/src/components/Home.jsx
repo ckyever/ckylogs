@@ -1,3 +1,4 @@
+import Logout from "./Logout.jsx";
 import { Link, useOutletContext } from "react-router";
 
 function Home() {
@@ -8,7 +9,9 @@ function Home() {
       <h2>Home Page</h2>
       {username && <div>Welcome {username}</div>}
       <nav>
-        {!username && (
+        {username ? (
+          <Logout></Logout>
+        ) : (
           <ul>
             <Link to="login">Login</Link>
           </ul>
