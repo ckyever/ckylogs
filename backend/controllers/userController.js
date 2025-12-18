@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 import { constants } from "http2";
 import jwt from "jsonwebtoken";
-import { insertUser } from "../models/userModel.js";
+import { insertUser, getUser } from "../models/userModel.js";
 
 const createUser = async (req, res) => {
   const { username, password } = req.body;
@@ -42,4 +42,24 @@ const createUser = async (req, res) => {
   }
 };
 
-export { createUser };
+const getUsername = async (req, res) => {
+  const { username } = req.params;
+
+  if (username) {
+    const existingUser = await getUser(username);
+    if (existingUser) {
+      return res.json({
+        message: "Username already exists",
+        isAvailable: false,
+      });
+    } else {
+      return res.json({ message: "Username is available", isAvailable: true });
+    }
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_BAD_REQUEST)
+      .json({ message: "You're missing something" });
+  }
+};
+
+export { createUser, getUsername };
