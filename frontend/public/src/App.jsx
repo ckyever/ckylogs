@@ -1,13 +1,19 @@
 import "./styles/App.css";
+import * as constants from "./constants.jsx";
 import { useState } from "react";
 import { Outlet } from "react-router";
 
 function App() {
-  const [userToken, setUserToken] = useState("");
+  const [userToken, setUserToken] = useState(
+    localStorage.getItem(constants.LOCAL_STORAGE_USER_TOKEN)
+  );
+  const [username, setUsername] = useState(
+    localStorage.getItem(constants.LOCAL_STORAGE_USERNAME)
+  );
 
   return (
     <>
-      <Outlet context={{ userToken, setUserToken }} />
+      <Outlet context={{ userToken, setUserToken, username, setUsername }} />
     </>
   );
 }

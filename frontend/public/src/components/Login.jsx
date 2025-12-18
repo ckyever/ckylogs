@@ -4,12 +4,11 @@ import { useOutletContext } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [loginUsername, setLoginUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const { setUserToken, setUsername } = useOutletContext();
   const navigate = useNavigate();
-
-  const { setUserToken } = useOutletContext();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -19,7 +18,7 @@ function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify({ username: loginUsername, password: password }),
       });
 
       if (!response.ok) {
@@ -27,9 +26,10 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log(data);
       localStorage.setItem(constants.LOCAL_STORAGE_USER_TOKEN, data.token);
+      localStorage.setItem(constants.LOCAL_STORAGE_USERNAME, data.username);
       setUserToken(data.token);
+      setUsername(data.username);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -46,8 +46,8 @@ function Login() {
           aria-label="username"
           placeholder="Username"
           required
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          value={loginUsername}
+          onChange={(event) => setLoginUsername(event.target.value)}
         ></input>
         <input
           type="password"
