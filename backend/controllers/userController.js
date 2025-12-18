@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import { constants } from "http2";
+import jwt from "jsonwebtoken";
 import { insertUser } from "../models/userModel.js";
 
 const createUser = async (req, res) => {
@@ -10,7 +11,25 @@ const createUser = async (req, res) => {
     const hashedPassword = await hash(password, SALT_ROUNDS);
     const newUser = await insertUser(username, hashedPassword);
     if (newUser) {
-      return res.json({ message: "A user is born", user: newUser });
+      jwt.sign(
+        { newUser },
+        process.env.SECRET_KEY,
+        { expiresIn: "1 days" },
+        (error, token) => {
+          if (error) {
+            console.error(error);
+            return res
+              .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+              .json({ message: "Failed to sign in" });
+          } else {
+            return res.json({
+              message: "A user is born!",
+              token,
+              username: newUser.username,
+            });
+          }
+        }
+      );
     } else {
       return res
         .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
