@@ -11,12 +11,32 @@ function Login() {
   const { setUserToken, setUsername } = useOutletContext();
   const navigate = useNavigate();
 
-  const endPoint = isLoginMode ? "/login" : "/user";
+  const apiUrl = `http://localhost:3000/api${isLoginMode ? "/login" : "/user"}`;
+
+  const handleUsernameChange = async (event) => {
+    const inputUsername = event.target.value;
+    setLoginUsername(inputUsername);
+    if (!isLoginMode && inputUsername.length > 0) {
+      const response = await fetch(`${apiUrl}/${inputUsername}`);
+
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const input = event.target;
+      if (data.isAvailable) {
+        input.setCustomValidity("");
+      } else {
+        input.setCustomValidity("Username is not available");
+      }
+    }
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api${endPoint}`, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +71,7 @@ function Login() {
           placeholder="Username"
           required
           value={loginUsername}
-          onChange={(event) => setLoginUsername(event.target.value)}
+          onChange={(event) => handleUsernameChange(event)}
         ></input>
         <input
           type="password"
