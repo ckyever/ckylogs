@@ -22,7 +22,7 @@ const loginUser = async (req, res) => {
                 .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
                 .json({ message: "Failed to get token" });
             } else {
-              return res.json({ message: "You're in!", token });
+              return res.json({ message: "You're in!", token, username: user.username });
             }
           }
         );

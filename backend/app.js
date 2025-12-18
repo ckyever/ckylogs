@@ -4,10 +4,12 @@ import { commentRouter } from "./routes/commentRouter.js";
 import { loginRouter } from "./routes/loginRouter.js";
 import { postRouter } from "./routes/postRouter.js";
 import { userRouter } from "./routes/userRouter.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Unprotected Routes
 app.use("/api/user", userRouter);
