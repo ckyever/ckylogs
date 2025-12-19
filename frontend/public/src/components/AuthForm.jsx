@@ -27,7 +27,7 @@ function AuthForm() {
     const inputUsername = event.target.value;
     setLoginUsername(inputUsername);
     if (!isLoginMode && inputUsername.length > 0) {
-      const response = await fetch(`${apiUrl}/${inputUsername}`);
+      const response = await fetch(`${apiUrl}/username/${inputUsername}`);
 
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
