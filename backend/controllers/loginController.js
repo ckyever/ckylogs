@@ -33,8 +33,8 @@ const loginUser = async (req, res) => {
       }
     } else {
       return res
-        .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
-        .json({ message: "We couldn't get your user" });
+        .status(constants.HTTP_STATUS_UNAUTHORIZED)
+        .json({ message: "You're not allowed here" });
     }
   } else {
     return res
