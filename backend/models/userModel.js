@@ -15,7 +15,7 @@ const insertUser = async (username, password) => {
   }
 };
 
-const getUser = async (username) => {
+const getUserByUsername = async (username) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -46,4 +46,4 @@ const isUserAnAuthor = async (userId) => {
   }
 };
 
-export { insertUser, getUser, isUserAnAuthor };
+export { insertUser, getUserByUsername, isUserAnAuthor };

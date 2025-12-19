@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 import { constants } from "http2";
 import jwt from "jsonwebtoken";
-import { insertUser, getUser } from "../models/userModel.js";
+import { insertUser, getUserByUsername } from "../models/userModel.js";
 
 const createUser = async (req, res) => {
   const { username, password } = req.body;
@@ -46,7 +46,7 @@ const getUsername = async (req, res) => {
   const { username } = req.params;
 
   if (username) {
-    const existingUser = await getUser(username);
+    const existingUser = await getUserByUsername(username);
     if (existingUser) {
       return res.json({
         message: "Username already exists",

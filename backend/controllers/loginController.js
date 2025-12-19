@@ -1,13 +1,13 @@
 import { compare } from "bcryptjs";
 import { constants } from "http2";
 import jwt from "jsonwebtoken";
-import { getUser } from "../models/userModel.js";
+import { getUserByUsername } from "../models/userModel.js";
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   if ((username, password)) {
-    const user = await getUser(username);
+    const user = await getUserByUsername(username);
     if (user) {
       const isValidCredentials = await compare(password, user.password);
       if (isValidCredentials) {
