@@ -14,6 +14,8 @@ function AuthForm() {
 
   const isLoginMode = location.pathname === "/login";
   useEffect(() => {
+    setLoginUsername("");
+    setPassword("");
     setAuthResult("");
   }, [isLoginMode]);
 
