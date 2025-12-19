@@ -1,16 +1,22 @@
 import * as constants from "../constants.jsx";
-import { useState } from "react";
+import { StatusCodes } from "http-status-codes";
+import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 function AuthForm() {
   const [loginUsername, setLoginUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [authResult, setAuthResult] = useState("");
 
   const { setUserToken, setUsername } = useOutletContext();
   const navigate = useNavigate();
 
   const isLoginMode = location.pathname === "/login";
+  useEffect(() => {
+    setAuthResult("");
+  }, [isLoginMode]);
+
   const apiUrl = `http://localhost:3000/api${isLoginMode ? "/login" : "/user"}`;
 
   const handleUsernameChange = async (event) => {
@@ -33,7 +39,7 @@ function AuthForm() {
     }
   };
 
-  const handleLogin = async (event) => {
+  const handleAuthorisation = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch(apiUrl, {
@@ -44,7 +50,13 @@ function AuthForm() {
         body: JSON.stringify({ username: loginUsername, password: password }),
       });
 
+      if (response.status === StatusCodes.UNAUTHORIZED) {
+        setAuthResult("Username or password is incorrect");
+        return;
+      }
+
       if (!response.ok) {
+        setAuthResult("Authorisation failed");
         throw new Error(`Response status: ${response.status}`);
       }
 
@@ -53,8 +65,10 @@ function AuthForm() {
       localStorage.setItem(constants.LOCAL_STORAGE_USERNAME, data.username);
       setUserToken(data.token);
       setUsername(data.username);
+      setAuthResult("");
       navigate("/", { replace: true });
     } catch (error) {
+      setAuthResult("Something went wrong");
       console.error(error);
     }
   };
@@ -63,7 +77,7 @@ function AuthForm() {
     <div className="login">
       <Link to="/">Ckylogs</Link>
       <h1>{isLoginMode ? "Login" : "Sign Up"}</h1>
-      <form onSubmit={(event) => handleLogin(event)}>
+      <form onSubmit={(event) => handleAuthorisation(event)}>
         <input
           type="text"
           name="username"
@@ -84,6 +98,7 @@ function AuthForm() {
         ></input>
         <button type="submit">{isLoginMode ? "Login" : "Sign Up"}</button>
       </form>
+      <div>{authResult}</div>
       {isLoginMode ? (
         <span>
           Don't have an account? <Link to="/signup">Sign Up</Link>
