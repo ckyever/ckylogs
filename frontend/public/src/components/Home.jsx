@@ -1,4 +1,5 @@
 import Logout from "./Logout.jsx";
+import PostSummary from "./PostSummary.jsx";
 import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router";
 
@@ -41,10 +42,13 @@ function Home() {
         <ul>
           {posts.map((post) => {
             return (
-              <li>
-                <h2>{post.title}</h2>
-                <span>{post.created_on}</span>
-                <p>{post.body}</p>
+              <li key={post.id}>
+                <PostSummary
+                  title={post.title}
+                  author={post.author && post.author.username}
+                  createdOn={post.created_on}
+                  body={post.body}
+                />
               </li>
             );
           })}
