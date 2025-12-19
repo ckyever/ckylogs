@@ -29,26 +29,6 @@ const getUserByUsername = async (username) => {
   }
 };
 
-const getUserDetails = async (username) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        username: username,
-      },
-      select: {
-        username: true,
-        is_author: true,
-        posts: true,
-        comments: true,
-      },
-    });
-    return user;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const isUserAnAuthor = async (userId) => {
   try {
     const result = await prisma.user.findUnique({
@@ -66,4 +46,4 @@ const isUserAnAuthor = async (userId) => {
   }
 };
 
-export { insertUser, getUserDetails, getUserByUsername, isUserAnAuthor };
+export { insertUser, getUserByUsername, isUserAnAuthor };
