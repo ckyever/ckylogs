@@ -33,6 +33,23 @@ const doesCommentExist = async (commentId) => {
   }
 };
 
+const getUserComments = async (username) => {
+  try {
+    const result = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+      include: {
+        comments: true,
+      },
+    });
+    return result ? result.comments : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const getCommentUserId = async (commentId) => {
   try {
     const result = await prisma.comment.findUnique({
@@ -64,4 +81,10 @@ const deleteCommentById = async (commentId) => {
   }
 };
 
-export { insertComment, doesCommentExist, getCommentUserId, deleteCommentById };
+export {
+  insertComment,
+  doesCommentExist,
+  getUserComments,
+  getCommentUserId,
+  deleteCommentById,
+};

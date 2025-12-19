@@ -2,6 +2,7 @@ import { constants } from "http2";
 import {
   insertComment,
   doesCommentExist,
+  getUserComments,
   deleteCommentById,
   getCommentUserId,
 } from "../models/commentModel.js";
@@ -59,4 +60,20 @@ const deleteComment = async (req, res) => {
   }
 };
 
-export { createComment, deleteComment };
+const getComments = async (req, res) => {
+  const { username } = req.params;
+  const comments = await getUserComments(username);
+
+  if (comments) {
+    return res.json({
+      message: `Here are the comments for User - ${username}`,
+      comments,
+    });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: `Couldn't get comments for User - ${username}` });
+  }
+};
+
+export { createComment, deleteComment, getComments };
