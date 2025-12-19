@@ -19,7 +19,9 @@ function AuthForm() {
     setAuthResult("");
   }, [isLoginMode]);
 
-  const apiUrl = `http://localhost:3000/api${isLoginMode ? "/login" : "/user"}`;
+  const apiUrl = `${import.meta.env.VITE_API_URL}/api${
+    isLoginMode ? "/login" : "/user"
+  }`;
 
   const handleUsernameChange = async (event) => {
     const inputUsername = event.target.value;
