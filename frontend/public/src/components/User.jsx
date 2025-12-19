@@ -1,7 +1,12 @@
+import PostList from "./PostList.jsx";
+import { useParams } from "react-router";
+
 function User() {
+  const { username } = useParams();
   return (
     <div className="user">
-      <h2>User Page</h2>
+      <h2>{username}</h2>
+      <PostList endpoint={`post/author/${username}`} />
     </div>
   );
 }
