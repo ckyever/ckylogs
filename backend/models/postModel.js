@@ -22,6 +22,9 @@ const getPosts = async () => {
       orderBy: {
         created_on: "desc",
       },
+      include: {
+        author: true,
+      }
     });
     return posts;
   } catch (error) {
