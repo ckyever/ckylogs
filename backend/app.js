@@ -18,7 +18,6 @@ app.use("/api/user", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/post", postRouter);
 app.use("/api/comment", commentRouter);
-console.log("ckytodo");
 
 // Protected Routes
 app.use(authenticateToken);

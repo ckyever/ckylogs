@@ -8,6 +8,6 @@ import {
 const postRouter = Router();
 postRouter.get("/", getAllPosts);
 postRouter.get("/:id", getPost);
-postRouter.get("/author/:id", getAuthorPosts);
+postRouter.get("/author/:username", getAuthorPosts);
 
 export { postRouter };

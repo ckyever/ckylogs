@@ -24,7 +24,7 @@ const getPosts = async () => {
       },
       include: {
         author: true,
-      }
+      },
     });
     return posts;
   } catch (error) {
@@ -50,17 +50,17 @@ const getPostById = async (postId) => {
   }
 };
 
-const getPostsByAuthorId = async (authorId) => {
+const getPostsByAuthorUsername = async (username) => {
   try {
-    const posts = await prisma.post.findMany({
+    const result = await prisma.user.findUnique({
       where: {
-        author_id: Number(authorId),
+        username: username,
       },
-      orderBy: {
-        created_on: "desc",
+      include: {
+        posts: true,
       },
     });
-    return posts;
+    return result ? result.posts : null;
   } catch (error) {
     console.error(error);
     return null;
@@ -123,7 +123,7 @@ export {
   insertPost,
   getPosts,
   getPostById,
-  getPostsByAuthorId,
+  getPostsByAuthorUsername,
   updatePostById,
   doesPostExist,
   getPostAuthorId,

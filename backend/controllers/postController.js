@@ -3,7 +3,7 @@ import {
   insertPost,
   getPosts,
   getPostById,
-  getPostsByAuthorId,
+  getPostsByAuthorUsername,
   doesPostExist,
   getPostAuthorId,
   updatePostById,
@@ -62,12 +62,12 @@ const getPost = async (req, res) => {
 };
 
 const getAuthorPosts = async (req, res) => {
-  const { id } = req.params;
-  const posts = await getPostsByAuthorId(id);
+  const { username } = req.params;
+  const posts = await getPostsByAuthorUsername(username);
 
   if (posts) {
     return res.json({
-      message: `Here's all the posts for Author ID - ${id}`,
+      message: `Here's all the posts for Author - ${username}`,
       posts,
     });
   } else {
