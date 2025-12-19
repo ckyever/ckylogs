@@ -1,7 +1,11 @@
 import { hash } from "bcryptjs";
 import { constants } from "http2";
 import jwt from "jsonwebtoken";
-import { insertUser, getUserByUsername } from "../models/userModel.js";
+import {
+  insertUser,
+  getUserDetails,
+  getUserByUsername,
+} from "../models/userModel.js";
 
 const createUser = async (req, res) => {
   const { username, password } = req.body;
@@ -42,6 +46,28 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUser = async (req, res) => {
+  const { username } = req.params;
+
+  if (username) {
+    const user = await getUserDetails(username);
+    if (user) {
+      return res.json({
+        message: "Here you go!",
+        user: user,
+      });
+    } else {
+      return res
+        .status(constants.HTTP_STATUS_BAD_REQUEST)
+        .json({ message: "This user doesn't exist" });
+    }
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_BAD_REQUEST)
+      .json({ message: "You're missing something" });
+  }
+};
+
 const getUsername = async (req, res) => {
   const { username } = req.params;
 
@@ -62,4 +88,4 @@ const getUsername = async (req, res) => {
   }
 };
 
-export { createUser, getUsername };
+export { createUser, getUsername, getUser };
