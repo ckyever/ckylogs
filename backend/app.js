@@ -3,6 +3,7 @@ import { authenticateToken } from "./middleware/authentication.js";
 import { commentRouter } from "./routes/commentRouter.js";
 import { loginRouter } from "./routes/loginRouter.js";
 import { postRouter } from "./routes/postRouter.js";
+import { protectedPostRouter } from "./routes/protectedPostRouter.js";
 import { userRouter } from "./routes/userRouter.js";
 import cors from "cors";
 
@@ -14,10 +15,11 @@ app.use(cors());
 // Unprotected Routes
 app.use("/api/user", userRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/post", postRouter);
 
 // Protected Routes
 app.use(authenticateToken);
-app.use("/api/post", postRouter);
+app.use("/api/post", protectedPostRouter);
 app.use("/api/comment", commentRouter);
 
 const PORT = process.env.PORT || 3000;

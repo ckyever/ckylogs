@@ -11,7 +11,7 @@ const authenticateToken = (req, res, next) => {
         if (error) {
           res
             .status(constants.HTTP_STATUS_FORBIDDEN)
-            .json({ message: "Unauthorized access" });
+            .json({ message: "Unauthorised access" });
         } else {
           req.user = decoded.user;
           next();
@@ -25,7 +25,7 @@ const authenticateToken = (req, res, next) => {
   } else {
     res
       .status(constants.HTTP_STATUS_FORBIDDEN)
-      .json({ message: "You are not authorized" });
+      .json({ message: "You are not authorised" });
   }
 };
 
