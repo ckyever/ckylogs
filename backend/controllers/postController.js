@@ -8,6 +8,7 @@ import {
   getPostAuthorId,
   updatePostById,
 } from "../models/postModel.js";
+import { getCommentsByPostId } from "../models/commentModel.js";
 import { isUserAnAuthor } from "../models/userModel.js";
 
 const createPost = async (req, res) => {
@@ -114,4 +115,27 @@ const updatePost = async (req, res) => {
   }
 };
 
-export { createPost, getAllPosts, getPost, getAuthorPosts, updatePost };
+const getPostComments = async (req, res) => {
+  const { id } = req.params;
+  const comments = await getCommentsByPostId(id);
+
+  if (comments) {
+    return res.json({
+      message: `Here's the comments for post ID - ${id}`,
+      comments,
+    });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "We couldn't get the comments" });
+  }
+};
+
+export {
+  createPost,
+  getAllPosts,
+  getPost,
+  getAuthorPosts,
+  updatePost,
+  getPostComments,
+};

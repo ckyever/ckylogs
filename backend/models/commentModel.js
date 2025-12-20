@@ -50,6 +50,23 @@ const getUserComments = async (username) => {
   }
 };
 
+const getCommentsByPostId = async (postId) => {
+  try {
+    const result = await prisma.post.findUnique({
+      where: {
+        id: Number(postId),
+      },
+      include: {
+        comments: true,
+      },
+    });
+    return result ? result.comments : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const getCommentUserId = async (commentId) => {
   try {
     const result = await prisma.comment.findUnique({
@@ -85,6 +102,7 @@ export {
   insertComment,
   doesCommentExist,
   getUserComments,
+  getCommentsByPostId,
   getCommentUserId,
   deleteCommentById,
 };
