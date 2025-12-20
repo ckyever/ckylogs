@@ -79,8 +79,10 @@ function AuthForm() {
 
   return (
     <div className="login">
-      <Link to="/">Ckylogs</Link>
-      <h1>{isLoginMode ? "Login" : "Sign Up"}</h1>
+      <Link to="/">
+        <h1>Ckylogs</h1>
+      </Link>
+      <h2>{isLoginMode ? "Login" : "Sign Up"}</h2>
       <form onSubmit={(event) => handleAuthorisation(event)}>
         <input
           type="text"
