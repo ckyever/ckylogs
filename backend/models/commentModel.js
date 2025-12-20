@@ -40,7 +40,7 @@ const getUserComments = async (username) => {
         username: username,
       },
       include: {
-        comments: true,
+        comments: { include: { post: true } },
       },
     });
     return result ? result.comments : null;
