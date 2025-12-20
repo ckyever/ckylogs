@@ -57,7 +57,11 @@ const getCommentsByPostId = async (postId) => {
         id: Number(postId),
       },
       include: {
-        comments: true,
+        comments: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
     return result ? result.comments : null;
