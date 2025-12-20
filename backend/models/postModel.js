@@ -41,6 +41,7 @@ const getPostById = async (postId) => {
       },
       include: {
         comments: true,
+        author: true,
       },
     });
     return post;

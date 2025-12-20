@@ -33,7 +33,7 @@ const routes = [
         },
       },
       { path: "user/:username", element: <User /> },
-      { path: "post", element: <Post /> },
+      { path: "post/:id", element: <Post /> },
     ],
     errorElement: <Error />,
   },
