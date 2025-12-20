@@ -1,3 +1,4 @@
+import styles from "../styles/AuthForm.module.css";
 import * as constants from "../constants.jsx";
 import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
@@ -78,12 +79,14 @@ function AuthForm() {
   };
 
   return (
-    <div className="login">
+    <div className={styles.page}>
       <Link to="/">
         <h1>Ckylogs</h1>
       </Link>
-      <h2>{isLoginMode ? "Login" : "Sign Up"}</h2>
-      <form onSubmit={(event) => handleAuthorisation(event)}>
+      <form
+        className={styles.form}
+        onSubmit={(event) => handleAuthorisation(event)}
+      >
         <input
           type="text"
           name="username"
