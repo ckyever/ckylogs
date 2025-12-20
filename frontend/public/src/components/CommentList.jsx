@@ -34,6 +34,8 @@ function CommentList({ endpoint, postId }) {
             return (
               <li key={comment.id}>
                 <Comment
+                  postId={comment.post && comment.post.id}
+                  postTitle={comment.post && comment.post.title}
                   user={comment.user && comment.user.username}
                   createdOn={comment.created_on}
                   text={comment.text}
