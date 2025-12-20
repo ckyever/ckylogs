@@ -1,8 +1,10 @@
+import { Link } from "react-router";
+
 function Comment({ user, createdOn, text }) {
   return (
     <>
       <div>
-        <span>{user}</span> <span>{createdOn}</span>
+        <Link to={`/user/${user}`}>{user}</Link> {createdOn}
       </div>
       <div>{text}</div>
     </>
