@@ -1,15 +1,14 @@
+import styles from "../styles/Home.module.css";
 import Navbar from "./Navbar.jsx";
 import PostList from "./PostList.jsx";
 
 function Home() {
   return (
-    <>
+    <div className={styles.page}>
       <Navbar />
-      <div className="home">
-        <h2>Home Page</h2>
-        <PostList endpoint="post" />
-      </div>
-    </>
+      <h2>Home Page</h2>
+      <PostList endpoint="post" />
+    </div>
   );
 }
 
