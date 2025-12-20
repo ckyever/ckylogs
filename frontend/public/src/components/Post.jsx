@@ -39,7 +39,7 @@ function Post() {
               </div>
               <p>{post.body}</p>
             </div>
-            <CommentList endpoint={`post/${id}/comments`} />
+            <CommentList endpoint={`post/${id}/comments`} postId={post.id} />
           </>
         )}
       </div>

@@ -1,9 +1,11 @@
 import Comment from "./Comment.jsx";
+import CommentForm from "./CommentForm.jsx";
 import { useEffect, useState } from "react";
 
-function CommentList({ endpoint }) {
+function CommentList({ endpoint, postId }) {
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -18,11 +20,12 @@ function CommentList({ endpoint }) {
         console.error(error);
       }
     })();
-  }, [endpoint]);
+  }, [endpoint, commentCount]);
 
   return (
     <div>
       <h3>Comments</h3>
+      <CommentForm postId={postId} setCommentCount={setCommentCount} />
       {isLoading ? (
         <div>Loading...</div>
       ) : (
