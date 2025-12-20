@@ -13,7 +13,7 @@ function Navbar() {
       <nav>
         <ul>
           <li className={styles.link}>
-            {username && <div>{username}</div>}
+            {username && <Link to={`/user/${username}`}>{username}</Link>}
             {username ? <Logout></Logout> : <Link to="/login">Login</Link>}
           </li>
         </ul>
