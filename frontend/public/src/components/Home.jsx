@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className={styles.page}>
       <Navbar />
-      <h2>Home Page</h2>
+      <h2>Latest Logs</h2>
       <PostList endpoint="post" />
     </div>
   );

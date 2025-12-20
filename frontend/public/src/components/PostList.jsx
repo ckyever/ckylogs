@@ -1,3 +1,4 @@
+import styles from "../styles/PostList.module.css";
 import PostSummary from "./PostSummary.jsx";
 import { useEffect, useState } from "react";
 
@@ -21,7 +22,7 @@ function PostList({ endpoint }) {
   }, [endpoint]);
 
   return (
-    <>
+    <div className={styles.feed}>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -41,7 +42,7 @@ function PostList({ endpoint }) {
           })}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
