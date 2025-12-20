@@ -25,7 +25,9 @@ function CommentList({ endpoint, postId }) {
   return (
     <div>
       <h3>Comments</h3>
-      <CommentForm postId={postId} setCommentCount={setCommentCount} />
+      {postId && (
+        <CommentForm postId={postId} setCommentCount={setCommentCount} />
+      )}
       {isLoading ? (
         <div>Loading...</div>
       ) : (
