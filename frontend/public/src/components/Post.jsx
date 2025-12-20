@@ -1,3 +1,4 @@
+import CommentList from "./CommentList.jsx";
 import Navbar from "./Navbar.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -38,6 +39,7 @@ function Post() {
               </div>
               <p>{post.body}</p>
             </div>
+            <CommentList endpoint={`post/${id}/comments`} />
           </>
         )}
       </div>
