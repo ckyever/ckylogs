@@ -20,7 +20,6 @@ function Post() {
       }
     })();
   }, [id]);
-  console.log(post);
 
   return (
     <div className="post">

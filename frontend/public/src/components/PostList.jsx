@@ -30,6 +30,7 @@ function PostList({ endpoint }) {
             return (
               <li key={post.id}>
                 <PostSummary
+                  id={post.id}
                   title={post.title}
                   author={post.author && post.author.username}
                   createdOn={post.created_on}
