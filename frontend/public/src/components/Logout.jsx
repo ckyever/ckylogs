@@ -1,4 +1,6 @@
 import * as constants from "../constants.jsx";
+import logoutIcon from "../assets/logout.svg";
+import styles from "../styles/Logout.module.css";
 import { useNavigate, useOutletContext } from "react-router";
 
 function Logout() {
@@ -13,7 +15,11 @@ function Logout() {
     navigate("/login", { replace: true });
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button className={styles.button} onClick={handleLogout}>
+      <img className={styles.icon} src={logoutIcon} />
+    </button>
+  );
 }
 
 export default Logout;
