@@ -1,3 +1,4 @@
+import Timestamp from "./Timestamp.jsx";
 import { Link } from "react-router";
 
 function Comment({ postId, postTitle, user, createdOn, text }) {
@@ -7,7 +8,8 @@ function Comment({ postId, postTitle, user, createdOn, text }) {
         <Link to={`/post/${postId}`}>{postTitle}</Link>
       </div>
       <div>
-        {user && <Link to={`/user/${user}`}>{user}</Link>} {createdOn}
+        {user && <Link to={`/user/${user}`}>{user}</Link>}
+        <Timestamp dateTime={createdOn} />
       </div>
       <div>{text}</div>
     </>

@@ -1,3 +1,4 @@
+import Timestamp from "./Timestamp.jsx";
 import { Link } from "react-router";
 
 function PostSummary({ id, title, author, createdOn, body }) {
@@ -7,7 +8,7 @@ function PostSummary({ id, title, author, createdOn, body }) {
         <h2>{title}</h2>
       </Link>
       <Link to={`/user/${author}`}>{author}</Link>
-      <div>{createdOn}</div>
+      <Timestamp dateTime={createdOn} />
       <Link to={`/post/${id}`}>
         <p>{body}</p>
       </Link>

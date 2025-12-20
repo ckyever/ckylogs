@@ -1,5 +1,6 @@
 import CommentList from "./CommentList.jsx";
 import Navbar from "./Navbar.jsx";
+import Timestamp from "./Timestamp.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
@@ -35,7 +36,7 @@ function Post() {
               <h2>{post.title}</h2>
               <div>
                 <span>{post.author.username}</span>{" "}
-                <span>{post.created_on}</span>
+                <Timestamp dateTime={post.created_on} />
               </div>
               <p>{post.body}</p>
             </div>
