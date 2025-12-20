@@ -1,3 +1,4 @@
+import Navbar from "./Navbar.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
@@ -22,21 +23,25 @@ function Post() {
   }, [id]);
 
   return (
-    <div className="post">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <div>
-            <h2>{post.title}</h2>
+    <>
+      <Navbar />
+      <div className="post">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
             <div>
-              <span>{post.author.username}</span> <span>{post.created_on}</span>
+              <h2>{post.title}</h2>
+              <div>
+                <span>{post.author.username}</span>{" "}
+                <span>{post.created_on}</span>
+              </div>
+              <p>{post.body}</p>
             </div>
-            <p>{post.body}</p>
-          </div>
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
