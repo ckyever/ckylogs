@@ -1,3 +1,4 @@
+import CommentList from "./CommentList.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
@@ -27,11 +28,14 @@ function Post() {
         <div>Loading...</div>
       ) : (
         <>
-          <h2>{post.title}</h2>
           <div>
-            <span>{post.author.username}</span> <span>{post.created_on}</span>
+            <h2>{post.title}</h2>
+            <div>
+              <span>{post.author.username}</span> <span>{post.created_on}</span>
+            </div>
+            <p>{post.body}</p>
           </div>
-          <p>{post.body}</p>
+          <CommentList endpoint={`comment/user/${post.author.username}`} />
         </>
       )}
     </div>
