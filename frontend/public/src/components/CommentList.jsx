@@ -28,6 +28,7 @@ function CommentList({ endpoint }) {
       ) : (
         <ul>
           {comments.map((comment) => {
+            console.log(comment);
             return (
               <li key={comment.id}>
                 <Comment
