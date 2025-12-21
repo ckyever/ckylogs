@@ -1,3 +1,4 @@
+import styles from "../styles/User.module.css";
 import CommentList from "./CommentList.jsx";
 import Navbar from "./Navbar.jsx";
 import PostList from "./PostList.jsx";
@@ -8,8 +9,8 @@ function User() {
   return (
     <>
       <Navbar />
-      <div className="user">
-        <h2>{username}</h2>
+      <div className={styles.container}>
+        <h2>Profile - {username}</h2>
         <PostList endpoint={`post/author/${username}`} />
         <CommentList endpoint={`comment/user/${username}`} />
       </div>
