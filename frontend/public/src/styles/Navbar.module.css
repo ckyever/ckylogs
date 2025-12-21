@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.navbar * {
+  color: var(--main-text-colour);
+}
+
 .link {
   display: flex;
   justify-content: center;
