@@ -1,5 +1,7 @@
 import CommentList from "./CommentList.jsx";
 import Navbar from "./Navbar.jsx";
+import postStyles from "../styles/PostSummary.module.css";
+import styles from "../styles/Post.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -27,12 +29,12 @@ function Post() {
   return (
     <>
       <Navbar />
-      <div className="post">
+      <div className={styles.container}>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
           <>
-            <div>
+            <div className={postStyles.card}>
               <h2>{post.title}</h2>
               <div>
                 <span>{post.author.username}</span>{" "}
