@@ -33,7 +33,7 @@ function CommentList({ endpoint, postId }) {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <ul>
+        <ul className={styles.commentList}>
           {comments.map((comment) => {
             return (
               <li key={comment.id} className={styles.comment}>

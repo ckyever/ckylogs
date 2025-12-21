@@ -1,17 +1,28 @@
+import styles from "../styles/Comment.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { Link } from "react-router";
 
 function Comment({ postId, postTitle, user, createdOn, text }) {
   return (
     <>
-      <div>
-        <Link to={`/post/${postId}`}>{postTitle}</Link>
-      </div>
-      <div>
-        {user && <Link to={`/user/${user}`}>{user}</Link>}
+      <div className={styles.commentDetails}>
+        {postId && (
+          <span>
+            Commented on "
+            <Link to={`/post/${postId}`} className={styles.title}>
+              {postTitle}
+            </Link>
+            " -
+          </span>
+        )}
+        {user && (
+          <Link to={`/user/${user}`} className={styles.user}>
+            {user}
+          </Link>
+        )}
         <Timestamp dateTime={createdOn} />
       </div>
-      <div>{text}</div>
+      <div className={styles.commentText}>{text}</div>
     </>
   );
 }
