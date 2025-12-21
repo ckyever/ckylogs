@@ -1,5 +1,12 @@
-html {
+body {
   font-family: "Source Sans 3", sans-serif;
+  min-height: 100dvh;
+  background: linear-gradient(
+    to bottom,
+    var(--light-background-colour),
+    var(--dark-background-colour)
+  );
+  color: var(--main-text-colour);
 }
 
 a {
