@@ -1,9 +1,10 @@
+import styles from "../styles/PostSummary.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { Link } from "react-router";
 
 function PostSummary({ id, title, author, createdOn, body }) {
   return (
-    <>
+    <div className={styles.card}>
       <Link to={`/post/${id}`}>
         <h2>{title}</h2>
       </Link>
@@ -12,7 +13,7 @@ function PostSummary({ id, title, author, createdOn, body }) {
       <Link to={`/post/${id}`}>
         <p>{body}</p>
       </Link>
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,12 @@
 .feed {
   width: 1000px;
   display: flex;
+  justify-content: center;
+}
+
+.postList {
+  width: 100%;
+  display: flex;
   flex-direction: column;
+  gap: 24px;
 }

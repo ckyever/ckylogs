@@ -26,7 +26,7 @@ function PostList({ endpoint }) {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <ul>
+        <ul className={styles.postList}>
           {posts.map((post) => {
             return (
               <li key={post.id}>
