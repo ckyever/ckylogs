@@ -10,3 +10,12 @@
 .container > * {
   width: 100%;
 }
+
+.postDetails {
+  display: flex;
+  gap: 8px;
+}
+
+.user {
+  font-weight: 600;
+}

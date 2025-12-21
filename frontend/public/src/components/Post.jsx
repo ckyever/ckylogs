@@ -4,7 +4,7 @@ import postStyles from "../styles/PostSummary.module.css";
 import styles from "../styles/Post.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 function Post() {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,8 +36,13 @@ function Post() {
           <>
             <div className={postStyles.card}>
               <h2>{post.title}</h2>
-              <div>
-                <span>{post.author.username}</span>{" "}
+              <div className={styles.postDetails}>
+                <Link
+                  to={`/user/${post.author.username}`}
+                  className={styles.user}
+                >
+                  {post.author.username}
+                </Link>
                 <Timestamp dateTime={post.created_on} />
               </div>
               <p>{post.body}</p>
