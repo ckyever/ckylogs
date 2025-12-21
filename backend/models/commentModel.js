@@ -40,7 +40,12 @@ const getUserComments = async (username) => {
         username: username,
       },
       include: {
-        comments: { include: { post: true } },
+        comments: {
+          include: { post: true },
+          orderBy: {
+            created_on: "desc",
+          },
+        },
       },
     });
     return result ? result.comments : null;
@@ -60,6 +65,9 @@ const getCommentsByPostId = async (postId) => {
         comments: {
           include: {
             user: true,
+          },
+          orderBy: {
+            created_on: "asc",
           },
         },
       },
