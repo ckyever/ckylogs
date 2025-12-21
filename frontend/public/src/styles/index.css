@@ -84,4 +84,6 @@ h6 {
   --main-text-colour: #ffffff;
   --card-text-colour: #000000;
   --details-text-colour: #8d8d8d;
+  --textbox-background-colour: #efefef;
+  --textbox-focused-background-colour: #f4f3f3;
 }

@@ -1,3 +1,4 @@
+import styles from "../styles/CommentForm.module.css";
 import { StatusCodes } from "http-status-codes";
 import { useState } from "react";
 import { Link, useOutletContext } from "react-router";
@@ -46,8 +47,12 @@ function CommentForm({ postId, setCommentCount }) {
   return (
     <>
       {username ? (
-        <form onSubmit={(event) => handleSubmit(event)}>
+        <form
+          onSubmit={(event) => handleSubmit(event)}
+          className={styles.commentForm}
+        >
           <textarea
+            className={styles.textbox}
             name="comment"
             aria-label="comment text"
             placeholder="Write something nice..."
@@ -55,7 +60,9 @@ function CommentForm({ postId, setCommentCount }) {
             value={comment}
             onChange={(event) => setComment(event.target.value)}
           ></textarea>
-          <button type="submit">Comment</button>
+          <button type="submit" className={styles.submitButton}>
+            Comment
+          </button>
           <div>{commentResult}</div>
         </form>
       ) : (

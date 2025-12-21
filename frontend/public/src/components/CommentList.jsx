@@ -1,5 +1,7 @@
 import Comment from "./Comment.jsx";
 import CommentForm from "./CommentForm.jsx";
+import styles from "../styles/CommentList.module.css";
+import postStyles from "../styles/PostSummary.module.css";
 import { useEffect, useState } from "react";
 
 function CommentList({ endpoint, postId }) {
@@ -23,7 +25,7 @@ function CommentList({ endpoint, postId }) {
   }, [endpoint, commentCount]);
 
   return (
-    <div>
+    <div className={postStyles.card}>
       <h3>Comments</h3>
       {postId && (
         <CommentForm postId={postId} setCommentCount={setCommentCount} />
@@ -34,7 +36,7 @@ function CommentList({ endpoint, postId }) {
         <ul>
           {comments.map((comment) => {
             return (
-              <li key={comment.id}>
+              <li key={comment.id} className={styles.comment}>
                 <Comment
                   postId={comment.post && comment.post.id}
                   postTitle={comment.post && comment.post.title}
