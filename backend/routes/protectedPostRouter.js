@@ -8,6 +8,6 @@ import {
 const protectedPostRouter = Router();
 protectedPostRouter.post("/", createPost);
 protectedPostRouter.put("/:id", updatePost);
-protectedPostRouter.put("/:id/like", likePost);
+protectedPostRouter.post("/:postId/like", likePost);
 
 export { protectedPostRouter };
