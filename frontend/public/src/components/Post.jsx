@@ -1,4 +1,5 @@
 import CommentList from "./CommentList.jsx";
+import LikeButton from "./LikeButton.jsx";
 import Navbar from "./Navbar.jsx";
 import postStyles from "../styles/PostSummary.module.css";
 import styles from "../styles/Post.module.css";
@@ -46,6 +47,7 @@ function Post() {
                 <Timestamp dateTime={post.created_on} />
               </div>
               <p>{post.body}</p>
+              <LikeButton postId={post.id} userLikes={post.user_likes} />
             </div>
             <CommentList endpoint={`post/${id}/comments`} postId={post.id} />
           </>
