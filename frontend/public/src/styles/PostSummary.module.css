@@ -31,3 +31,9 @@
   color: var(--details-text-colour);
   font-weight: 600;
 }
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
