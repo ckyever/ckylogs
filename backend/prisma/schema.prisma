@@ -20,6 +20,7 @@ model user {
   is_author Boolean @default(false)
   posts post[]
   comments comment[]
+  liked_posts liked_post[]
 }
 
 model post {
@@ -31,6 +32,16 @@ model post {
   author user? @relation(fields: [author_id], references: [id])
   author_id Int?
   comments comment[]
+  user_likes liked_post[]
+}
+
+model liked_post {
+  id Int @id @default(autoincrement())
+  post post @relation(fields: [post_id], references: [id])
+  post_id Int
+  user user @relation(fields: [user_id], references: [id])
+  user_id Int
+  @@unique([post_id, user_id])
 }
 
 model comment {
