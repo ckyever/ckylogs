@@ -8,6 +8,7 @@ import {
   getPostAuthorId,
   updatePostById,
 } from "../models/postModel.js";
+import { insertLikedPost } from "../models/likedPostModel.js";
 import { getCommentsByPostId } from "../models/commentModel.js";
 import { isUserAnAuthor } from "../models/userModel.js";
 
@@ -131,6 +132,21 @@ const getPostComments = async (req, res) => {
   }
 };
 
+const likePost = async (req, res) => {
+  const { postId, userId } = req.params;
+  const likedPost = await insertLikedPost(postId, userId);
+
+  if (likedPost) {
+    return res.json({
+      message: "You liked the post",
+    });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "We couldn't like the post for you" });
+  }
+};
+
 export {
   createPost,
   getAllPosts,
@@ -138,4 +154,5 @@ export {
   getAuthorPosts,
   updatePost,
   getPostComments,
+  likePost,
 };
