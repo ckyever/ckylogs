@@ -133,8 +133,8 @@ const getPostComments = async (req, res) => {
 };
 
 const likePost = async (req, res) => {
-  const { postId, userId } = req.params;
-  const likedPost = await insertLikedPost(postId, userId);
+  const { postId } = req.params;
+  const likedPost = await insertLikedPost(postId, req.user.id);
 
   if (likedPost) {
     return res.json({
