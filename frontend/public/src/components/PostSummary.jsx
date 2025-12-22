@@ -1,6 +1,7 @@
 import styles from "../styles/PostSummary.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { Link } from "react-router";
+import Username from "./Username.jsx";
 
 function PostSummary({ id, title, author, createdOn, body }) {
   return (
@@ -9,9 +10,7 @@ function PostSummary({ id, title, author, createdOn, body }) {
       <div className={styles.card}>
         {author && (
           <div className={styles.details}>
-            <Link to={`/user/${author}`} className={styles.authorLink}>
-              {author}
-            </Link>
+            <Username username={author} />
             <Timestamp dateTime={createdOn} />
           </div>
         )}

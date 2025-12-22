@@ -1,0 +1,7 @@
+.username {
+  font-weight: 600;
+}
+
+.currentUser {
+  color: var(--current-username-colour);
+}

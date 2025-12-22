@@ -1,6 +1,7 @@
 import styles from "../styles/Navbar.module.css";
 import Logout from "./Logout.jsx";
 import { Link, useOutletContext } from "react-router";
+import Username from "./Username.jsx";
 
 function Navbar() {
   const { username } = useOutletContext();
@@ -13,7 +14,7 @@ function Navbar() {
       <nav>
         <ul>
           <li className={styles.link}>
-            {username && <Link to={`/user/${username}`}>{username}</Link>}
+            {username && <Username username={username} />}
             {username ? <Logout></Logout> : <Link to="/login">Login</Link>}
           </li>
         </ul>

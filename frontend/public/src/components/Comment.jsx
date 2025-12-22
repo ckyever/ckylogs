@@ -1,6 +1,7 @@
 import styles from "../styles/Comment.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { Link } from "react-router";
+import Username from "./Username.jsx";
 
 function Comment({ postId, postTitle, user, createdOn, text }) {
   return (
@@ -15,11 +16,7 @@ function Comment({ postId, postTitle, user, createdOn, text }) {
             " -
           </span>
         )}
-        {user && (
-          <Link to={`/user/${user}`} className={styles.user}>
-            {user}
-          </Link>
-        )}
+        {user && <Username username={user} />}
         <Timestamp dateTime={createdOn} />
       </div>
       <div className={styles.commentText}>{text}</div>
