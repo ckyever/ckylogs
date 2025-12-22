@@ -24,6 +24,7 @@ const getPosts = async () => {
       },
       include: {
         author: true,
+        user_likes: true,
       },
     });
     return posts;
@@ -42,6 +43,7 @@ const getPostById = async (postId) => {
       include: {
         comments: true,
         author: true,
+        user_likes: true,
       },
     });
     return post;
@@ -58,7 +60,7 @@ const getPostsByAuthorUsername = async (username) => {
         username: username,
       },
       include: {
-        posts: true,
+        posts: { include: { user_likes: true } },
       },
     });
     return result ? result.posts : null;
