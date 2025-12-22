@@ -1,0 +1,4 @@
+.timestamp {
+  color: var(--details-text-colour);
+  font-weight: 600;
+}
