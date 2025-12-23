@@ -10,10 +10,22 @@ function App() {
   const [username, setUsername] = useState(
     localStorage.getItem(constants.LOCAL_STORAGE_USERNAME)
   );
+  const [userId, setUserId] = useState(
+    localStorage.getItem(constants.LOCAL_STORAGE_USER_ID)
+  );
 
   return (
     <>
-      <Outlet context={{ userToken, setUserToken, username, setUsername }} />
+      <Outlet
+        context={{
+          userToken,
+          setUserToken,
+          username,
+          setUsername,
+          userId,
+          setUserId,
+        }}
+      />
     </>
   );
 }

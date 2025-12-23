@@ -10,7 +10,7 @@ function AuthForm() {
   const [password, setPassword] = useState("");
   const [authResult, setAuthResult] = useState("");
 
-  const { setUserToken, setUsername } = useOutletContext();
+  const { setUserToken, setUsername, setUserId } = useOutletContext();
   const navigate = useNavigate();
 
   const isLoginMode = location.pathname === "/login";
@@ -68,8 +68,10 @@ function AuthForm() {
       const data = await response.json();
       localStorage.setItem(constants.LOCAL_STORAGE_USER_TOKEN, data.token);
       localStorage.setItem(constants.LOCAL_STORAGE_USERNAME, data.username);
+      localStorage.setItem(constants.LOCAL_STORAGE_USER_ID, data.userId);
       setUserToken(data.token);
       setUsername(data.username);
+      setUserId(data.userId);
       setAuthResult("");
       navigate("/", { replace: true });
     } catch (error) {

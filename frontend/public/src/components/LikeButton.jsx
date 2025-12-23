@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useOutletContext } from "react-router";
 
 function LikeButton({ postId, userLikes }) {
-  const { userToken, username } = useOutletContext();
-  const [isLiked, setIsLiked] = useState(userLikes.includes(username)); // CKYTODO Needs to be the user id
+  const { userToken, userId } = useOutletContext();
+  const [isLiked, setIsLiked] = useState(
+    userLikes.some((like) => like.user_id == userId)
+  );
+  const [likeCount, setLikeCount] = useState(userLikes.length);
 
   const handleLike = async () => {
     try {
@@ -22,12 +25,11 @@ function LikeButton({ postId, userLikes }) {
         throw new Error(`Response status: ${response.status}`);
       }
       setIsLiked(true);
+      setLikeCount((prev) => prev + 1);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const likeCount = userLikes.length + (isLiked ? 1 : 0);
 
   return (
     <>

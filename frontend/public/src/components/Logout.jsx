@@ -5,13 +5,15 @@ import { useNavigate, useOutletContext } from "react-router";
 
 function Logout() {
   const navigate = useNavigate();
-  const { setUserToken, setUsername } = useOutletContext();
+  const { setUserToken, setUsername, setUserId } = useOutletContext();
 
   const handleLogout = () => {
     localStorage.removeItem(constants.LOCAL_STORAGE_USER_TOKEN);
     localStorage.removeItem(constants.LOCAL_STORAGE_USERNAME);
+    localStorage.removeItem(constants.LOCAL_STORAGE_USER_ID);
     setUserToken(null);
     setUsername(null);
+    setUserId(null);
     navigate("/login", { replace: true });
   };
 
