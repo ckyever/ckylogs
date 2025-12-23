@@ -139,7 +139,6 @@ const getPostComments = async (req, res) => {
 const likePost = async (req, res) => {
   const { postId } = req.params;
   const existingLikedPost = await doesLikedPostExist(postId, req.user.id);
-  console.log(existingLikedPost);
 
   if (existingLikedPost) {
     const unlikedPost = await deleteLikedPost(postId, req.user.id);
