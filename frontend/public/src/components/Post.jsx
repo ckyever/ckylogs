@@ -47,7 +47,11 @@ function Post() {
                 <Timestamp dateTime={post.created_on} />
               </div>
               <p>{post.body}</p>
-              <LikeButton postId={post.id} userLikes={post.user_likes} />
+              <LikeButton
+                postId={post.id}
+                userLikes={post.user_likes}
+                viewOnly={false}
+              />
             </div>
             <CommentList endpoint={`post/${id}/comments`} postId={post.id} />
           </>

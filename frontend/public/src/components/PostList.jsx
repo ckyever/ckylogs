@@ -36,6 +36,7 @@ function PostList({ endpoint }) {
                   author={post.author && post.author.username}
                   createdOn={post.created_on}
                   body={post.body}
+                  userLikes={post.user_likes}
                 />
               </li>
             );

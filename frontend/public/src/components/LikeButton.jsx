@@ -4,7 +4,7 @@ import { Link, useOutletContext } from "react-router";
 import heartOutline from "../assets/heart-outline.svg";
 import heartFilled from "../assets/heart.svg";
 
-function LikeButton({ postId, userLikes }) {
+function LikeButton({ postId, userLikes, viewOnly = true }) {
   const { userToken, userId } = useOutletContext();
   const [isLiked, setIsLiked] = useState(
     userLikes.some((like) => like.user_id == userId)
@@ -45,7 +45,7 @@ function LikeButton({ postId, userLikes }) {
       <button
         className={styles.likeButton}
         onClick={handleLike}
-        disabled={!userToken}
+        disabled={!userToken || viewOnly}
       >
         <img
           className={styles.icon}
@@ -54,7 +54,7 @@ function LikeButton({ postId, userLikes }) {
         />
         {likeCount}
       </button>
-      {!userToken && (
+      {!userToken && !viewOnly && (
         <div>
           <Link to="/login">Login</Link> to like a post
         </div>
