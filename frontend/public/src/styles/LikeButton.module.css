@@ -1,3 +1,8 @@
+.likeContainer {
+  display: flex;
+  gap: 20px;
+}
+
 .likeButton {
   background-color: transparent;
   border: none;
@@ -10,6 +15,10 @@
   padding: 0;
   cursor: pointer;
   color: var(--details-text-colour);
+}
+
+.likeButton:disabled {
+  cursor: default;
 }
 
 .icon {

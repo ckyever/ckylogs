@@ -1,6 +1,6 @@
 import styles from "../styles/LikeButton.module.css";
 import { useState } from "react";
-import { useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
 import heartOutline from "../assets/heart-outline.svg";
 import heartFilled from "../assets/heart.svg";
 
@@ -41,16 +41,25 @@ function LikeButton({ postId, userLikes }) {
   };
 
   return (
-    <>
-      <button className={styles.likeButton} onClick={handleLike}>
+    <div className={styles.likeContainer}>
+      <button
+        className={styles.likeButton}
+        onClick={handleLike}
+        disabled={!userToken}
+      >
         <img
           className={styles.icon}
           src={isLiked ? heartFilled : heartOutline}
           alt="heart icon"
         />
-        {likeCount}{" "}
+        {likeCount}
       </button>
-    </>
+      {!userToken && (
+        <div>
+          <Link to="/login">Login</Link> to like a post
+        </div>
+      )}
+    </div>
   );
 }
 
