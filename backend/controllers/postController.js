@@ -8,7 +8,11 @@ import {
   getPostAuthorId,
   updatePostById,
 } from "../models/postModel.js";
-import { insertLikedPost } from "../models/likedPostModel.js";
+import {
+  doesLikedPostExist,
+  insertLikedPost,
+  deleteLikedPost,
+} from "../models/likedPostModel.js";
 import { getCommentsByPostId } from "../models/commentModel.js";
 import { isUserAnAuthor } from "../models/userModel.js";
 
@@ -134,16 +138,31 @@ const getPostComments = async (req, res) => {
 
 const likePost = async (req, res) => {
   const { postId } = req.params;
-  const likedPost = await insertLikedPost(postId, req.user.id);
+  const existingLikedPost = await doesLikedPostExist(postId, req.user.id);
+  console.log(existingLikedPost);
 
-  if (likedPost) {
-    return res.json({
-      message: "You liked the post",
-    });
+  if (existingLikedPost) {
+    const unlikedPost = await deleteLikedPost(postId, req.user.id);
+    if (unlikedPost) {
+      return res.json({
+        message: "You unliked the post",
+      });
+    } else {
+      return res
+        .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+        .json({ message: "We couldn't unlike the post for you" });
+    }
   } else {
-    return res
-      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
-      .json({ message: "We couldn't like the post for you" });
+    const likedPost = await insertLikedPost(postId, req.user.id);
+    if (likedPost) {
+      return res.json({
+        message: "You liked the post",
+      });
+    } else {
+      return res
+        .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+        .json({ message: "We couldn't like the post for you" });
+    }
   }
 };
 
