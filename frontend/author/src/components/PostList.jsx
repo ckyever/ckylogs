@@ -33,7 +33,6 @@ function PostList({ endpoint }) {
                 <PostSummary
                   id={post.id}
                   title={post.title}
-                  author={post.author && post.author.username}
                   createdOn={post.created_on}
                   body={post.body}
                   userLikes={post.user_likes}
