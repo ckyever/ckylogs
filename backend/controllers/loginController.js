@@ -27,6 +27,7 @@ const loginUser = async (req, res) => {
                 token,
                 username: user.username,
                 userId: user.id,
+                isAuthor: user.is_author,
               });
             }
           }

@@ -1,0 +1,13 @@
+.commentDetails {
+  display: flex;
+  gap: 8px;
+}
+
+.title,
+.user {
+  font-weight: 600;
+}
+
+.commentText {
+  margin: 8px;
+}

@@ -1,0 +1,38 @@
+.commentForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--textbox-background-colour);
+  border-radius: 12px;
+}
+
+.commentForm:focus-within {
+  background-color: var(--textbox-focused-background-colour);
+}
+
+.commentForm * {
+  background-color: transparent;
+  border: none;
+  border-radius: 12px;
+}
+
+.textbox {
+  resize: none;
+  padding: 12px;
+  min-height: 100px;
+  field-sizing: content;
+}
+
+.textbox:focus {
+  outline: none;
+}
+
+.submitButton {
+  align-self: flex-start;
+  background-color: var(--dark-background-colour);
+  color: var(--main-text-colour);
+  padding: 4px 8px;
+  margin: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

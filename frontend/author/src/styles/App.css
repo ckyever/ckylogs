@@ -1,0 +1,28 @@
+body {
+  font-family: "Source Sans 3", sans-serif;
+  min-height: 100dvh;
+  background: linear-gradient(
+    to bottom,
+    var(--light-background-colour),
+    var(--dark-background-colour)
+  );
+  color: var(--main-text-colour);
+  padding-bottom: 100px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  color: inherit;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}

@@ -1,0 +1,18 @@
+.navbar {
+  padding: 20px 40px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar * {
+  color: var(--main-text-colour);
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}

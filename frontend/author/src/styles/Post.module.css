@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 20px;
+}
+
+.container > * {
+  width: 100%;
+}
+
+.postDetails {
+  display: flex;
+  gap: 8px;
+}
+
+.user {
+  font-weight: 600;
+}

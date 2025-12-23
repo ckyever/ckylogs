@@ -1,0 +1,26 @@
+.likeContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.likeButton {
+  background-color: transparent;
+  border: none;
+  align-self: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+  color: var(--details-text-colour);
+}
+
+.likeButton:disabled {
+  cursor: default;
+}
+
+.icon {
+  width: 24px;
+}
