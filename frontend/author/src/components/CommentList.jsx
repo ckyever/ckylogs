@@ -1,13 +1,11 @@
 import Comment from "./Comment.jsx";
-import CommentForm from "./CommentForm.jsx";
 import styles from "../styles/CommentList.module.css";
 import postStyles from "../styles/PostSummary.module.css";
 import { useEffect, useState } from "react";
 
-function CommentList({ endpoint, postId }) {
+function CommentList({ endpoint }) {
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
-  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -22,14 +20,11 @@ function CommentList({ endpoint, postId }) {
         console.error(error);
       }
     })();
-  }, [endpoint, commentCount]);
+  }, [endpoint]);
 
   return (
     <div className={postStyles.card}>
       <h3>Comments</h3>
-      {postId && (
-        <CommentForm postId={postId} setCommentCount={setCommentCount} />
-      )}
       {isLoading ? (
         <div>Loading...</div>
       ) : (
