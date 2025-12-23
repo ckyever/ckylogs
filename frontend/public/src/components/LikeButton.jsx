@@ -27,8 +27,14 @@ function LikeButton({ postId, userLikes }) {
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
-      setIsLiked(true);
-      setLikeCount((prev) => prev + 1);
+
+      if (isLiked) {
+        setIsLiked(false);
+        setLikeCount((prev) => prev - 1);
+      } else {
+        setIsLiked(true);
+        setLikeCount((prev) => prev + 1);
+      }
     } catch (error) {
       console.error(error);
     }
