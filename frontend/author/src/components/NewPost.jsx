@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import styles from "../styles/NewPost.module.css";
 import { useState } from "react";
 import { useOutletContext } from "react-router";
 
@@ -58,8 +59,12 @@ function NewPost({ setNewPostCount }) {
       >
         New Post
       </button>
-      <dialog id="newPostDialog">
-        <form onSubmit={(event) => handleSubmit(event)}>
+      <dialog id="newPostDialog" className={styles.newPostDialog}>
+        <form
+          className={styles.newPostForm}
+          onSubmit={(event) => handleSubmit(event)}
+        >
+          <h3>New Post</h3>
           <h2>
             <input
               type="text"
@@ -80,7 +85,7 @@ function NewPost({ setNewPostCount }) {
             value={body}
             onChange={(event) => setBody(event.target.value)}
           ></textarea>
-          <div>
+          <div className={styles.actions}>
             <button type="submit">Post</button>
             <button onClick={() => setIsDialogOpen(false)} type="button">
               Cancel
