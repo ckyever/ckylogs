@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
     const newUser = await insertUser(username, hashedPassword);
     if (newUser) {
       jwt.sign(
-        { newUser },
+        { user: newUser },
         process.env.SECRET_KEY,
         { expiresIn: "1 days" },
         (error, token) => {
@@ -26,6 +26,7 @@ const createUser = async (req, res) => {
               message: "A user is born!",
               token,
               username: newUser.username,
+              userId: newUser.id,
             });
           }
         }
