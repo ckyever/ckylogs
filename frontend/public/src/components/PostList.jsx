@@ -27,20 +27,24 @@ function PostList({ endpoint }) {
         <div>Loading...</div>
       ) : (
         <ul className={styles.postList}>
-          {posts.map((post) => {
-            return (
-              <li key={post.id}>
-                <PostSummary
-                  id={post.id}
-                  title={post.title}
-                  author={post.author && post.author.username}
-                  createdOn={post.created_on}
-                  body={post.body}
-                  userLikes={post.user_likes}
-                />
-              </li>
-            );
-          })}
+          {posts.length > 0 ? (
+            posts.map((post) => {
+              return (
+                <li key={post.id}>
+                  <PostSummary
+                    id={post.id}
+                    title={post.title}
+                    author={post.author && post.author.username}
+                    createdOn={post.created_on}
+                    body={post.body}
+                    userLikes={post.user_likes}
+                  />
+                </li>
+              );
+            })
+          ) : (
+            <div>No posts yet</div>
+          )}
         </ul>
       )}
     </div>
