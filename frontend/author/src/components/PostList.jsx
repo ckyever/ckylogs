@@ -2,7 +2,7 @@ import styles from "../styles/PostList.module.css";
 import PostSummary from "./PostSummary.jsx";
 import { useEffect, useState } from "react";
 
-function PostList({ endpoint }) {
+function PostList({ endpoint, newPostCount }) {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
@@ -19,7 +19,7 @@ function PostList({ endpoint }) {
         console.error(error);
       }
     })();
-  }, [endpoint]);
+  }, [endpoint, newPostCount]);
 
   return (
     <div className={styles.feed}>
