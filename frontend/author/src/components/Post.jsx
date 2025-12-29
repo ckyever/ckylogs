@@ -68,7 +68,7 @@ function Post() {
       );
 
       if (response.status === StatusCodes.UNAUTHORIZED) {
-        setUpdateResult("You are not authorized to update this post");
+        setUpdateResult("You are not authorised to update this post");
         return;
       }
 
