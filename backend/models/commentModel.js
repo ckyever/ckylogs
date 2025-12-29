@@ -79,23 +79,6 @@ const getCommentsByPostId = async (postId) => {
   }
 };
 
-const getCommentUserId = async (commentId) => {
-  try {
-    const result = await prisma.comment.findUnique({
-      select: {
-        user_id: true,
-      },
-      where: {
-        id: Number(commentId),
-      },
-    });
-    return result ? result.user_id : null;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const deleteCommentById = async (commentId) => {
   try {
     const comment = await prisma.comment.delete({
@@ -110,11 +93,28 @@ const deleteCommentById = async (commentId) => {
   }
 };
 
+const getCommentsPostAuthorId = async (commentId) => {
+  try {
+    const result = await prisma.comment.findUnique({
+      where: {
+        id: Number(commentId),
+      },
+      include: {
+        post: true,
+      },
+    });
+    return result ? result.post.author_id : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export {
   insertComment,
   doesCommentExist,
   getUserComments,
   getCommentsByPostId,
-  getCommentUserId,
   deleteCommentById,
+  getCommentsPostAuthorId,
 };

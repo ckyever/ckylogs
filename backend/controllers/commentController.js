@@ -4,7 +4,7 @@ import {
   doesCommentExist,
   getUserComments,
   deleteCommentById,
-  getCommentUserId,
+  getCommentsPostAuthorId,
 } from "../models/commentModel.js";
 
 const createComment = async (req, res) => {
@@ -34,12 +34,12 @@ const deleteComment = async (req, res) => {
       .json({ message: "That comment doesn't exist" });
   }
 
-  const userId = await getCommentUserId(commentId);
+  const userId = await getCommentsPostAuthorId(id);
   if (userId) {
     if (userId != req.user.id) {
-      return res
-        .status(constants.HTTP_STATUS_FORBIDDEN)
-        .json({ message: "You can't delete another user's comment" });
+      return res.status(constants.HTTP_STATUS_FORBIDDEN).json({
+        message: "You can't delete comments on another author's post",
+      });
     }
   } else {
     return res
