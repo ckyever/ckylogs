@@ -1,11 +1,12 @@
 import CommentList from "./CommentList.jsx";
+import { StatusCodes } from "http-status-codes";
 import LikeButton from "./LikeButton.jsx";
 import Navbar from "./Navbar.jsx";
 import postStyles from "../styles/PostSummary.module.css";
 import styles from "../styles/Post.module.css";
-import Timestamp from "./Timestamp.jsx";
 import { useEffect, useState } from "react";
-import { redirect, useOutletContext, useParams } from "react-router";
+import { useOutletContext, useParams } from "react-router";
+import Timestamp from "./Timestamp.jsx";
 
 function Post() {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,8 +14,10 @@ function Post() {
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
   const [error, setError] = useState(null);
+  const [updateResult, setUpdateResult] = useState("");
+
   const { id } = useParams();
-  const { userId } = useOutletContext();
+  const { userId, userToken } = useOutletContext();
 
   useEffect(() => {
     (async () => {
@@ -50,38 +53,34 @@ function Post() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // setCommentResult("Submitting...");
-    // try {
-    //   const response = await fetch(
-    //     `${import.meta.env.VITE_API_URL}/api/comment/post/${postId}`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${userToken}`,
-    //       },
-    //       body: JSON.stringify({ text: comment }),
-    //     }
-    //   );
+    setUpdateResult("Updating...");
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/post/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify({ title: postTitle, body: postBody }),
+        }
+      );
 
-    //   if (response.status === StatusCodes.UNAUTHORIZED) {
-    //     setCommentResult(
-    //       "You are not authorized to leave a comment on this post"
-    //     );
-    //     return;
-    //   }
+      if (response.status === StatusCodes.UNAUTHORIZED) {
+        setUpdateResult("You are not authorized to update this post");
+        return;
+      }
 
-    //   if (!response.ok) {
-    //     setCommentResult("Something went wrong");
-    //     throw new Error(`Response status: ${response.status}`);
-    //   }
-    //   setComment("");
-    //   setCommentResult("");
-    //   setCommentCount((prev) => prev + 1);
-    // } catch (error) {
-    //   setCommentResult("Failed to submit comment");
-    //   console.error(error);
-    // }
+      if (!response.ok) {
+        setUpdateResult("Something went wrong");
+        throw new Error(`Response status: ${response.status}`);
+      }
+      setUpdateResult("Successfully updated");
+    } catch (error) {
+      setUpdateResult("Failed to update post");
+      console.error(error);
+    }
   };
 
   return (
@@ -95,6 +94,7 @@ function Post() {
             <div className={postStyles.card}>
               <form
                 className={styles.form}
+                onChange={() => setUpdateResult("")}
                 onSubmit={(event) => handleSubmit(event)}
               >
                 <h2>
@@ -122,8 +122,8 @@ function Post() {
                 ></textarea>
                 <div>
                   <button type="submit">Update</button>
-                  <button type="reset">Cancel</button>
                 </div>
+                <div>{updateResult}</div>
               </form>
               <LikeButton
                 postId={post.id}
