@@ -24,6 +24,11 @@ function Post() {
         );
         const data = await response.json();
 
+        if (!data.post) {
+          setError(new Error("This post doesn't exist"));
+          return;
+        }
+
         if (data.post.author_id != userId) {
           setError(new Error("User is not authorised to view this post"));
           return;
