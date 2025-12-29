@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 function PostList({ endpoint, newPostCount }) {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [deleteCount, setDeleteCount] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -19,7 +20,7 @@ function PostList({ endpoint, newPostCount }) {
         console.error(error);
       }
     })();
-  }, [endpoint, newPostCount]);
+  }, [endpoint, newPostCount, deleteCount]);
 
   return (
     <div className={styles.feed}>
@@ -36,6 +37,7 @@ function PostList({ endpoint, newPostCount }) {
                   createdOn={post.created_on}
                   body={post.body}
                   userLikes={post.user_likes}
+                  setDeleteCount={setDeleteCount}
                 />
               </li>
             );
