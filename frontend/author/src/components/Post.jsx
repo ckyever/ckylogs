@@ -5,14 +5,16 @@ import postStyles from "../styles/PostSummary.module.css";
 import styles from "../styles/Post.module.css";
 import Timestamp from "./Timestamp.jsx";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { redirect, useOutletContext, useParams } from "react-router";
 
 function Post() {
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState(null);
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
+  const [error, setError] = useState(null);
   const { id } = useParams();
+  const { userId } = useOutletContext();
 
   useEffect(() => {
     (async () => {
@@ -21,6 +23,12 @@ function Post() {
           `${import.meta.env.VITE_API_URL}/api/post/${id}`
         );
         const data = await response.json();
+
+        if (data.post.author_id != userId) {
+          setError(new Error("User is not authorised to view this post"));
+          return;
+        }
+
         setPost(data.post);
         setPostTitle(data.post.title);
         setPostBody(data.post.body);
@@ -29,7 +37,11 @@ function Post() {
         console.error(error);
       }
     })();
-  }, [id]);
+  }, [id, userId]);
+
+  if (error) {
+    throw error;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
