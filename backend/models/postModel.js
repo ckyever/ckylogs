@@ -16,6 +16,20 @@ const insertPost = async (title, body, authorId) => {
   }
 };
 
+const deletePostById = async (postId) => {
+  try {
+    const deletedPost = await prisma.post.delete({
+      where: {
+        id: Number(postId),
+      },
+    });
+    return deletedPost;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const getPosts = async () => {
   try {
     const posts = await prisma.post.findMany({
@@ -135,4 +149,5 @@ export {
   updatePostById,
   doesPostExist,
   getPostAuthorId,
+  deletePostById,
 };

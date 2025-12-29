@@ -7,6 +7,7 @@ import {
   doesPostExist,
   getPostAuthorId,
   updatePostById,
+  deletePostById,
 } from "../models/postModel.js";
 import {
   doesLikedPostExist,
@@ -39,6 +40,25 @@ const createPost = async (req, res) => {
     return res
       .status(constants.HTTP_STATUS_BAD_REQUEST)
       .json({ message: "You're missing something" });
+  }
+};
+
+const deletePost = async (req, res) => {
+  const { postId } = req.params;
+  const authorId = await getPostAuthorId(postId);
+  if (authorId != req.user.id) {
+    return res
+      .status(constants.HTTP_STATUS_FORBIDDEN)
+      .json({ message: "You do not have the permission to delete this post" });
+  }
+
+  const deletedPost = await deletePostById(postId);
+  if (deletedPost) {
+    return res.json({ message: "Post has been deleted", post: deletedPost });
+  } else {
+    return res
+      .status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      .json({ message: "We couldn't delete this post" });
   }
 };
 
@@ -173,4 +193,5 @@ export {
   updatePost,
   getPostComments,
   likePost,
+  deletePost,
 };
