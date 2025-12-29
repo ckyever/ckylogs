@@ -60,7 +60,12 @@ const getPostsByAuthorUsername = async (username) => {
         username: username,
       },
       include: {
-        posts: { include: { user_likes: true } },
+        posts: {
+          orderBy: {
+            created_on: "desc",
+          },
+          include: { user_likes: true },
+        },
       },
     });
     return result ? result.posts : null;
