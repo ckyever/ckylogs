@@ -111,9 +111,15 @@ function AuthForm() {
       </form>
       <div>{authResult}</div>
       {isLoginMode ? (
-        <span>
-          Don't have an account? <Link to="/signup">Sign Up</Link>
-        </span>
+        <>
+          <div>
+            Don't have an account? <Link to="/signup">Sign Up</Link>
+          </div>
+          <div>
+            Are you an author? Visit the{" "}
+            <a href="https://ckylogs-editor.pages.dev">Editor Portal</a>
+          </div>
+        </>
       ) : (
         <span>
           Already have an account? <Link to="/login">Login</Link>
