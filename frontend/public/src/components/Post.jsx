@@ -46,7 +46,7 @@ function Post() {
                 </Link>
                 <Timestamp dateTime={post.created_on} />
               </div>
-              <p>{post.body}</p>
+              <p className={styles.body}>{post.body}</p>
               <LikeButton
                 postId={post.id}
                 userLikes={post.user_likes}

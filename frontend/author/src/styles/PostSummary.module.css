@@ -49,3 +49,7 @@
   cursor: pointer;
   z-index: 3;
 }
+
+.body {
+  white-space: pre-wrap;
+}

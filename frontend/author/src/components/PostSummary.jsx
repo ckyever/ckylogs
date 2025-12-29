@@ -59,7 +59,7 @@ function PostSummary({
             </button>
           </div>
         </div>
-        <p>{body}</p>
+        <p className={styles.body}>{body}</p>
         <LikeButton postId={id} userLikes={userLikes} />
       </div>
     </div>

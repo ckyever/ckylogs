@@ -19,7 +19,7 @@ function PostSummary({ id, title, author, createdOn, body, userLikes }) {
           <h2>{title}</h2>
           {!author && <Timestamp dateTime={createdOn} />}
         </div>
-        <p>{body}</p>
+        <p className={styles.body}>{body}</p>
         <LikeButton postId={id} userLikes={userLikes} />
       </div>
     </div>
