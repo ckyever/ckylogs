@@ -22,8 +22,24 @@ const routes = [
           }
         },
       },
-      { path: "dashboard", element: <Dashboard /> },
-      { path: "post/:id", element: <Post /> },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+        loader: async () => {
+          if (!localStorage.getItem(constants.LOCAL_STORAGE_USER_TOKEN)) {
+            return redirect("/");
+          }
+        },
+      },
+      {
+        path: "post/:id",
+        element: <Post />,
+        loader: async () => {
+          if (!localStorage.getItem(constants.LOCAL_STORAGE_USER_TOKEN)) {
+            return redirect("/");
+          }
+        },
+      },
     ],
     errorElement: <Error />,
   },
