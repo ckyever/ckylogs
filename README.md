@@ -6,6 +6,8 @@ Frontend websites built with React, Vite, HTML5, CSS3, and JavaScript (ES6+).
 
 👉 [Live Demo](https://ckylogs.pages.dev)
 
+![Website screenshot](./screenshot.png)
+
 ## Acknowledgement
 
 Inspired from [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-blog-api)
